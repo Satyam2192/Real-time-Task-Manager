@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { addDoc, updateDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../firebase";
-
 
 const TaskForm = ({ onTaskSubmit, selectedTask }) => {
   const [title, setTitle] = useState("");
@@ -17,32 +17,17 @@ const TaskForm = ({ onTaskSubmit, selectedTask }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = {
-      title,
-      description,
-      dueDate
-    };
-
-    try {
-      if (selectedTask) {
-        // Update existing task
-        await db.collection('tasks').doc(selectedTask.id).update(data);
-      } else {
-        // Create a new task
-        await db.collection('tasks').add(data);
-      }
-
-      setTitle("");
-      setDescription("");
-      setDueDate("");
-    } catch (error) {
-      console.error("Error uploading data to Firebase: ", error);
-    }
+    onTaskSubmit({ title, description, dueDate });
+    setTitle("");
+    setDescription("");
+    setDueDate("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-4 rounded-md shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto bg-white p-4 rounded-md shadow-md"
+    >
       <div className="mb-4">
         <label htmlFor="title" className="block font-semibold mb-1">
           Title:

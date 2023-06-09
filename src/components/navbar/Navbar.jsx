@@ -1,55 +1,76 @@
 import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import { useContext } from "react";
+import { DarkModeContext } from "../../context/darkModeContext";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import React from "react";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import { useEffect, useState } from "react";
+
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const usersData = querySnapshot.docs.map((doc) => doc.data());
+        setUserData(usersData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <div className="navbar">
-      <div className="wrapper">
-        <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
+    <div className="navbar bg-gradient-to-r from-[#33ccff] to-pink-300">
+      <div className="wrapper ">
+        <div className="justify">
+          <NavLink to="/" className="flex">
+            <img
+              className="w-5 h-5"
+              src="https://sk-p.netlify.app/assets/logo-b3ed6a28.svg"
+            />
+            <p className="ml-2 font-bold">Task Manager</p>
+          </NavLink>
         </div>
         <div className="items">
-          <div className="item">
-            <LanguageOutlinedIcon className="icon" />
-            English
-          </div>
+          <div></div>
           <div className="item">
             <DarkModeOutlinedIcon
-              className="icon"
+              className="icon text-white"
               onClick={() => dispatch({ type: "TOGGLE" })}
             />
           </div>
           <div className="item">
-            <FullscreenExitOutlinedIcon className="icon" />
+            <FullscreenExitOutlinedIcon className="icon text-white" />
           </div>
-          <div className="item">
-            <NotificationsNoneOutlinedIcon className="icon" />
+          <div className="item relative">
+            <NotificationsNoneOutlinedIcon className="icon text-white" />
             <div className="counter">1</div>
           </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
-          </div>
-          <div className="item">
-            <ListOutlinedIcon className="icon" />
-          </div>
-          <div className="item">
+          <div className="item flex justify-items-end">
+          {userData && userData.length > 0 && (
+            
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={userData[0].img}
               alt=""
-              className="avatar"
+              className="avatar w-10 h-10 rounded-full"
             />
+        )}
           </div>
         </div>
       </div>

@@ -9,13 +9,14 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
+  { name: "January", Total: 12 },
+  { name: "February", Total: 21 },
+  { name: "March", Total: 8 },
+  { name: "April", Total: 16 },
+  { name: "May", Total: 9 },
+  { name: "June", Total: 7 },
 ];
+import React from "react";
 
 const Chart = ({ aspect, title }) => {
   return (
@@ -30,8 +31,8 @@ const Chart = ({ aspect, title }) => {
         >
           <defs>
             <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              <stop offset="5%" stopColor="#33ccff" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#33ccff" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis dataKey="name" stroke="gray" />
@@ -40,7 +41,7 @@ const Chart = ({ aspect, title }) => {
           <Area
             type="monotone"
             dataKey="Total"
-            stroke="#8884d8"
+            stroke="#33ccff"
             fillOpacity={1}
             fill="url(#total)"
           />
