@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Signup = () => {
   const [error, setError] = useState(false);
@@ -50,9 +50,9 @@ const Signup = () => {
         
         <p className="w-[300px] mx-5 mt-3 flex flex-row justify-between text-white">
           Don't you have an account{" "}
-          <NavLink className="place-items-end" to="/login">
+          <Link className="place-items-end" to="/login">
             LogIn
-          </NavLink>
+          </Link>
         </p>
         {error && <span className="mx-5 text-red-600 mt-2 flex justify-center">You have already an account, please login</span>}
       </form>
