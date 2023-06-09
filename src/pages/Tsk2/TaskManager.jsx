@@ -13,8 +13,6 @@ import TaskForm from "./TaskForm";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 
-
-
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -75,8 +73,8 @@ const TaskManager = () => {
       <Sidebar />
       <div className="flex flex-col flex-grow">
         <Navbar />
-        <div className="flex-grow bg-gray-100 pt-8">
-          <h1 className="text-2xl font-bold mb-4">Task Manager</h1>
+        <div className="flex-grow bg-gray-100 pt-8 px-4 md:px-8 lg:px-16">
+          <h1 className="text-2xl font-bold mb-4 flex justify-center">Task Manager</h1>
           <TaskForm
             onTaskSubmit={handleTaskSubmit}
             selectedTask={selectedTask}
