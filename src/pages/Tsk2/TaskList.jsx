@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Task from './Task';
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const TaskList = ({ tasks, onEdit, onDelete }) => {
+  const { darkMode, dispatch } = useContext(DarkModeContext);
+
   return (
-    <div>
+    <div className={` ${darkMode ? "dark" : ""}`}>
       {tasks.map((task) => (
         <Task
           key={task.id}

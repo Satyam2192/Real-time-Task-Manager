@@ -12,8 +12,12 @@ import TaskList from "./TaskList";
 import TaskForm from "./TaskForm";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import { DarkModeContext } from "../../context/darkModeContext";
+import { useContext } from "react";
 
 const TaskManager = () => {
+  const { darkMode, dispatch } = useContext(DarkModeContext);
+
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [filterStatus, setFilterStatus] = useState("all");
@@ -69,11 +73,12 @@ const TaskManager = () => {
   });
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div className={`flex ${darkMode ? "dark" : ""}`}>
+      <Sidebar darkMode={darkMode}/>
       <div className="flex flex-col flex-grow">
-        <Navbar />
-        <div className="flex-grow bg-gray-100 pt-8 px-4 md:px-8 lg:px-16">
+      <Navbar darkMode={darkMode} />
+
+        <div className="flex-grow  pt-8 px-4 md:px-8 lg:px-16">
           <h1 className="text-2xl font-bold mb-4 flex justify-center">Task Manager</h1>
           <TaskForm
             onTaskSubmit={handleTaskSubmit}

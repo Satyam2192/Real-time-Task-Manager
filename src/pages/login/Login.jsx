@@ -36,13 +36,13 @@ const Login = () => {
         <h1 className=" flex justify-center text-white text-[35px]">Login</h1>
         <input
           type="text"
-          className="w-[300px] h-10 m-5 px-4 bg-transparent focus:outline-none rounded"
+          className="w-[300px] h-10 m-5 px-4 bg-transparent focus:outline-none rounded bg-white"
           placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          className="w-[300px] h-10 px-4 m-5 bg-transparent rounded focus:outline-none"
+          className="w-[300px] h-10 px-4 m-5 bg-transparent rounded focus:outline-none bg-white"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />

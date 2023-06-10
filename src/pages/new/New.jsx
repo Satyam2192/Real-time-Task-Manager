@@ -19,7 +19,7 @@ const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const uploadFile = () => {
@@ -81,9 +81,13 @@ const New = ({ inputs, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      navigate(-1)
+      navigate(-1);
     } catch (err) {
-      console.log(err);
+      if (err.code === "auth/email-already-in-use") {
+        alert("Email already in use");
+      } else {
+        alert(err.message);
+      }
     }
   };
 
